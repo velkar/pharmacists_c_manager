@@ -11,15 +11,18 @@ public class Recommendation {
     private long id;
     private final String mName;
     private final String aMName;
+    private final int stock;
     
     public Recommendation() {
         this.mName = "";
         this.aMName = "";
+        this.stock = 0;
     }
     
-    public Recommendation(String mName, String aMName) {
+    public Recommendation(String mName, String aMName, int stock) {
         this.mName = mName;
         this.aMName = aMName;
+        this.stock = stock;
     }
 
     public long getId() {
@@ -36,7 +39,9 @@ public class Recommendation {
     
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", mName=" + mName + ", aMName=" + aMName + '}';
+        //return "User{" + "id=" + id + ", mName=" + mName + ", aMName=" + aMName + '}';
+    	return "Recommendation [id=" + id + ", mName=" + mName  
+				+ ", aMName =" + aMName + ", stock=" + stock + "]"; 
     }
 
 	
