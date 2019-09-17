@@ -30,4 +30,15 @@ public class Controller {
     void addUser(@RequestBody Invoice invoice) {
     	invoiceRepository.save(invoice);
     }
+    public void authentication(){
+    	
+    	
+    }   
+    public void getRecommadtion() {}
+    public void getNotification() {}
+   public void  addNotification() {}
+    public void updateNoticeStatus(){}
+   public void  updateRecomandationStatus(){}
+    
+    
 }
