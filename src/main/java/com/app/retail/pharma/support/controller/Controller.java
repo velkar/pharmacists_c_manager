@@ -34,11 +34,30 @@ public class Controller {
     	
     	
     }   
-    public void getRecommadtion() {}
-    public void getNotification() {}
-   public void  addNotification() {}
-    public void updateNoticeStatus(){}
-   public void  updateRecomandationStatus(){}
+   /* @GetMapping("/getRecommandation")
+    public List<Recommendation> getRecommadation() {
+    	return (List<Invoice>) invoiceRepository.findAll();
+    }
+    @GetMapping("/getNotification")
+    public void getNotification() {
+    	return (List<Invoice>) invoiceRepository.findAll();
+    	
+    }*/
+    @PostMapping("/addInvoice")
+   public void  addNotification(@RequestBody Invoice invoice) {
+    	invoiceRepository.save(invoice);
+    	
+    }
+    @PostMapping("/updateNotice")
+    public void updateNoticeStatus(@RequestBody Invoice invoice) {
+    	invoiceRepository.save(invoice);
+    	
+    }
+   /* @PostMapping("/updateRecommadation")
+   public void  updateRecomandationStatus(@RequestBody Recommendation recommandation){
+    	
+    	invoiceRepository.save(recommandation);
+    }*/
     
     
 }
