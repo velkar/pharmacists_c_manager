@@ -1,12 +1,10 @@
 package com.app.retail.pharma.support.service;
-
 import java.util.List;
-
 import com.app.retail.pharma.support.entities.Invoice;
 import com.app.retail.pharma.support.repositories.InvoiceRepository;
 
 /*
- * 
+ * PharmacyService class
  *  
  */
 public class PharmacySupportService {
@@ -46,16 +44,13 @@ public class PharmacySupportService {
 	 * @return
 	 */
 	public List<Invoice> fetchRecommandationValues() {
-
 		return (List<Invoice>) invoiceRepository.findAll();
 	}
-
 	/**
 	 * 
 	 * @return
 	 */
 	public List<Invoice> fetNotificationValues() {
-
 		return (List<Invoice>) invoiceRepository.findAll();
 	}
 
@@ -64,7 +59,6 @@ public class PharmacySupportService {
 	 * @param invoice
 	 */
 	public void updateNoticeValues(Invoice invoice) {
-
 		invoiceRepository.save(invoice);
 	}
 

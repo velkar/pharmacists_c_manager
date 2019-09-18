@@ -21,7 +21,6 @@ import com.app.retail.pharma.support.service.PharmacySupportService;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class Controller {
-
 	public PharmacySupportService pharmacySupport;
 
 	/**
@@ -57,7 +56,6 @@ public class Controller {
 	@GetMapping("/getNotification")
 	public List<Invoice> getNotification() {
 		return (List<Invoice>) pharmacySupport.fetNotificationValues();
-
 	}
 
 	/**
@@ -67,7 +65,6 @@ public class Controller {
 	@PostMapping("/addInvoice")
 	public void addNotification(@RequestBody Invoice invoice) {
 		pharmacySupport.addNotificationValues(invoice);
-
 	}
 
 	/**
@@ -77,18 +74,17 @@ public class Controller {
 	@PostMapping("/updateNotice")
 	public void updateNoticeStatus(@RequestBody Invoice invoice) {
 		pharmacySupport.updateNoticeValues(invoice);
-
 	}
 
 	/**
 	 * 
 	 * @param recommandation
 	 */
-	@PostMapping("/updateRecommadation")
+	/*@PostMapping("/updateRecommadation")
 	public void updateRecomandationStatus(
 			@RequestBody Recommendation recommandation) {
 
 		pharmacySupport.updateRecommandationValues(recommandation);
-	}
+	}*/
 
 }
