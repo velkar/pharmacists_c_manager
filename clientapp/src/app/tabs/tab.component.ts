@@ -10,14 +10,14 @@ import { Component, Input } from '@angular/core';
     `
   ],
   template: `
-    <div [hidden]="!active" class="pane"> 
+    <div [hidden]="!active" class="pane">
     <ng-content></ng-content>
     </div>
   `
 })
 export class TabComponent {
 
-  @Input('tabTitle') title: String;
+  @Input('tabTitle') title: string;
   @Input() active = false;
 
 }
