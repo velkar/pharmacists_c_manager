@@ -7,13 +7,17 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { AddinvoiceComponent } from './addinvoice/addinvoice.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TabsComponent } from './tabs/tabs.component';
+import { TabComponent } from './tabs/tab.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    AddinvoiceComponent
+    AddinvoiceComponent,
+    TabsComponent,
+    TabComponent
   ],
   imports: [
     HttpClientModule,
