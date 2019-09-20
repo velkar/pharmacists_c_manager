@@ -1,13 +1,18 @@
 package com.app.retail.pharma.support.entities;
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class Invoice {
+@Table(name="AddInvoice")
+public class Invoice implements Serializable {
+	
+	private static final long serialVersionUID = 8228184427191072705L;
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,8 +23,8 @@ public class Invoice {
     private final String mName;
     private final int intakeCode;
     private final int count;
-    private final Date consumptionDate;
-    private final Date expectedCompletionDate;
+    private final String consumptionDate;
+    private final String expectedCompletionDate;
     private final long contactNumber;
     private final String email;
     
@@ -36,7 +41,7 @@ public class Invoice {
         this.email = "";
     }
     
-    public Invoice(String name, int age,String aMName,String mName,int intakeCode,int count,Date consumptionDate,Date expectedCompletionDate,long contactNumber, String email) {
+    public Invoice(String name, int age,String aMName,String mName,int intakeCode,int count,String consumptionDate,String expectedCompletionDate,long contactNumber, String email) {
         this.name = name;
         this.age = age;
         this.aMName = aMName;
@@ -77,11 +82,11 @@ public class Invoice {
 		return count;
 	}
 
-	public Date getConsumptionDate() {
+	public String getConsumptionDate() {
 		return consumptionDate;
 	}
 
-	public Date getExpectedCompletionDate() {
+	public String getExpectedCompletionDate() {
 		return expectedCompletionDate;
 	}
 
