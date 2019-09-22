@@ -1,73 +1,47 @@
-package com.app.retail.pharma.support.controller;
-
+package com.app.retail.pharma.support.service;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Stream;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.app.retail.pharma.support.entities.Invoice;
 import com.app.retail.pharma.support.entities.Recommendation;
 import com.app.retail.pharma.support.repositories.InvoiceRepository;
 import com.app.retail.pharma.support.repositories.RecommendationRepo;
-import com.app.retail.pharma.support.service.PharmacySupportService;
 
-@RestController
-@CrossOrigin(origins = "https://localhost:4200")
-public class Controller {
-	
-	@Autowired
-    InvoiceRepository invoiceRepository;
-	
-	@Autowired
-	RecommendationRepo recommendationRepo;
-	
-	PharmacySupportService pharmacySupportService;
+/*
+ * PharmacyService class
+ *  
+ */
+public class PharmacySupportService {
 
-    @GetMapping("/hello")
-    public String getHello() {
-        return "Hi";
-    }
-    
-	@PostMapping("/addingInvoice")
-    void addUser(@RequestBody Invoice invoice) {
-		//invoiceRepository.save(invoice);
-		pharmacySupportService.addInvoice(invoice);
-    }
+	private final InvoiceRepository invoiceRepository;
 	
-	@GetMapping("/home")
-    public ArrayList<HashMap<String, Comparable>> notification() {
-		ArrayList<HashMap<String, Comparable>> customerNotificationList = pharmacySupportService.findCustomerToBeNotified();
-        return customerNotificationList;
-    }
+	private final RecommendationRepo recommendationRepo;
+
+	/**
+	 * @param invoiceRepository
+	 */
+	public PharmacySupportService(InvoiceRepository invoiceRepository, RecommendationRepo recommendationRepo) {
+		this.invoiceRepository = invoiceRepository;
+		this.recommendationRepo = recommendationRepo;
+	}
 	
-	@GetMapping("/dashboard")
-    public ArrayList<HashMap<String, Comparable>> recommendations() {
-		ArrayList<HashMap<String, Comparable>> customerRecommendationList = pharmacySupportService.recommendationCheck();
-        return customerRecommendationList;
-    }
+	/**
+	 * This method used for adding invoice as notification values
+	 * @param invoice
+	 */
+	public void addInvoice(Invoice invoice) {
+		invoiceRepository.save(invoice);
+	}
 	
-	@GetMapping("/kowshik")
-    public String getkowshik() {
-        return "Hikowshik";
-    }
 	
-	/*public ArrayList<HashMap<String, Comparable>> findCustomerToBeNotified() {
+	
+	public ArrayList<HashMap<String, Comparable>> findCustomerToBeNotified() {
 		ArrayList<HashMap<String, Comparable>> customerNotificationList = new ArrayList<HashMap<String, Comparable>>();
 		String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
 		List<Invoice> registeredCustomers = new ArrayList<Invoice>();
-		registeredCustomers = (List<Invoice>) invoiceRepository.findAll();
+		registeredCustomers = fetchNotificationValues();
 		for(Invoice invoice: registeredCustomers){
 			if(invoice.getExpectedCompletionDate().equalsIgnoreCase(currentDate)){
 				HashMap<String, Comparable> customerMap = new HashMap<String, Comparable>();
@@ -81,11 +55,27 @@ public class Controller {
 		return customerNotificationList;
 	}
 	
+	/**
+	 * This method used for fetch the notification details
+	 * @return
+	 */
+	public List<Invoice> fetchNotificationValues() {
+		return (List<Invoice>) invoiceRepository.findAll();
+	}
+	
+	/**
+	 * This method used for fetch the notification details
+	 * @return
+	 */
+	public List<Recommendation> fetchRecommendationValues() {
+		return (List<Recommendation>) recommendationRepo.findAll();
+	}
+	
 	public ArrayList<HashMap<String, Comparable>> recommendationCheck(){
 		String recommendations = "No Recommendations";
 		ArrayList<HashMap<String, Comparable>> customerRecommendationList = new ArrayList<HashMap<String, Comparable>>();
 		List<Invoice> customers = new ArrayList<Invoice>();
-		customers = (List<Invoice>) invoiceRepository.findAll();
+		customers = fetchNotificationValues();
 		Recommendation warehoused = new Recommendation();
 		for(Invoice invoice: customers){
 			HashMap<String, Comparable> recommendationMap = new HashMap<String, Comparable>();
@@ -100,7 +90,7 @@ public class Controller {
 	
 	public String getByMedicineName(String medicineName, int count, String ailmentName){
 		List<Recommendation> stockedMedicine = new ArrayList<Recommendation>();
-		stockedMedicine = (List<Recommendation>) recommendationRepo.findAll();
+		stockedMedicine = fetchRecommendationValues();
 		for(Recommendation medicine: stockedMedicine){
 			if(medicine.getMedicineName().equalsIgnoreCase(medicineName) && medicine.getStock()<count){
 				List<Recommendation> recommended = getByAilmentName(stockedMedicine, ailmentName);
@@ -123,6 +113,6 @@ public class Controller {
 			}
 		}
 		return ailmentMedicine;
-	}*/
-    
+	}
+			
 }
