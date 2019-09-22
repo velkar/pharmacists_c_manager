@@ -36,7 +36,7 @@ public class Application {
             });
             
             Stream.of("Sanjay", "Venkat", "Steve").forEach(name -> {
-            	Invoice invoiceInitObj = new Invoice(name, 31,"fever","crocin",111,20,"20-09-2019","20-09-2019",987616741,name.toLowerCase() + "@gmail.com");
+            	Invoice invoiceInitObj = new Invoice(name, 31,"fever","crocin",111,20,"21-09-2019","21-09-2019",987616741,name.toLowerCase() + "@gmail.com");
             	invoiceRepository.save(invoiceInitObj);
             });
         };

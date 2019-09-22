@@ -13,19 +13,19 @@ public class Recommendation {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private final String mName;
-    private final String aMName;
+    private final String medicineName;
+    private final String ailmentName;
     private final int stock;
     
     public Recommendation() {
-        this.mName = "";
-        this.aMName = "";
+        this.medicineName = "";
+        this.ailmentName = "";
         this.stock = 0;
     }
     
-    public Recommendation(String mName, String aMName, int stock) {
-        this.mName = mName;
-        this.aMName = aMName;
+    public Recommendation(String medicineName, String ailmentName, int stock) {
+        this.medicineName = medicineName;
+        this.ailmentName = ailmentName;
         this.stock = stock;
     }
 
@@ -33,19 +33,23 @@ public class Recommendation {
         return id;
     }
     
-    public String getMName() {
-        return mName;
-    }
+    public String getMedicineName() {
+		return medicineName;
+	}
 
-    public String getAMName() {
-        return aMName;
-    }
-    
-    @Override
+	public String getAilmentName() {
+		return ailmentName;
+	}
+	
+	public int getStock() {
+		return stock;
+	}
+
+	@Override
     public String toString() {
-        //return "User{" + "id=" + id + ", mName=" + mName + ", aMName=" + aMName + '}';
-    	return "Recommendation [id=" + id + ", mName=" + mName  
-				+ ", aMName =" + aMName + ", stock=" + stock + "]"; 
+        //return "User{" + "id=" + id + ", medicineName=" + medicineName + ", ailmentName=" + ailmentName + '}';
+    	return "Recommendation [id=" + id + ", medicineName=" + medicineName  
+				+ ", ailmentName =" + ailmentName + ", stock=" + stock + "]"; 
     }
 
 	

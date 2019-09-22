@@ -19,8 +19,8 @@ public class Invoice implements Serializable {
     private long id;
     private final String name;
     private final int age;
-    private final String aMName;
-    private final String mName;
+    private final String ailmentName;
+    private final String medicineName;
     private final int intakeCode;
     private final int count;
     private final String consumptionDate;
@@ -31,8 +31,8 @@ public class Invoice implements Serializable {
     public Invoice() {
         this.name = "";
         this.age = 0;
-        this.aMName = "";
-        this.mName = "";
+        this.medicineName = "";
+        this.ailmentName = "";
         this.intakeCode = 0;
         this.count = 0;
         this.consumptionDate = null;
@@ -41,11 +41,11 @@ public class Invoice implements Serializable {
         this.email = "";
     }
     
-    public Invoice(String name, int age,String aMName,String mName,int intakeCode,int count,String consumptionDate,String expectedCompletionDate,long contactNumber, String email) {
+    public Invoice(String name, int age,String ailmentName,String medicineName,int intakeCode,int count,String consumptionDate,String expectedCompletionDate,long contactNumber, String email) {
         this.name = name;
         this.age = age;
-        this.aMName = aMName;
-        this.mName = mName;
+        this.ailmentName = ailmentName;
+        this.medicineName = medicineName;
         this.intakeCode = intakeCode;
         this.count = count;
         this.consumptionDate = consumptionDate;
@@ -66,12 +66,12 @@ public class Invoice implements Serializable {
 		return age;
 	}
 
-	public String getaMName() {
-		return aMName;
+	public String getAilmentName() {
+		return ailmentName;
 	}
 
-	public String getmName() {
-		return mName;
+	public String getMedicineName() {
+		return medicineName;
 	}
 
 	public int getIntakeCode() {
@@ -105,8 +105,8 @@ public class Invoice implements Serializable {
     @Override
     public String toString() {
         //return "User{" + "id=" + id + ", name=" + name + ", email=" + email + '}';
-        return "Invoice [id=" + id + ", name=" + name + ", age=" + age+ ", aMName=" + aMName 
-				+ ", mName=" + mName + ", intakeCode=" + intakeCode+ ", count=" + count 
+        return "Invoice [id=" + id + ", name=" + name + ", age=" + age+ ", ailmentName=" + ailmentName 
+				+ ", medicineName=" + medicineName + ", intakeCode=" + intakeCode+ ", count=" + count 
 				+ ", consumptionDate=" + consumptionDate + ", expectedCompletionDate=" + expectedCompletionDate 
 				+ ", contactNumber =" + contactNumber + ", email=" + email + "]";
         

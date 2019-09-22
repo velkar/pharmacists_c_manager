@@ -5,47 +5,35 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-<<<<<<< HEAD
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.ui.Model;
-=======
->>>>>>> a52a26587a6c7bbb8dd34df509077e06bd4b08d7
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.app.retail.pharma.support.entities.Invoice;
 import com.app.retail.pharma.support.entities.Recommendation;
-<<<<<<< HEAD
 import com.app.retail.pharma.support.repositories.InvoiceRepository;
 import com.app.retail.pharma.support.repositories.RecommendationRepo;
-=======
 import com.app.retail.pharma.support.service.PharmacySupportService;
-
-/*
- * 
- *  Controller Class for Pharmacy
- *  
- *  Created by
- *  
- */
->>>>>>> a52a26587a6c7bbb8dd34df509077e06bd4b08d7
 
 @RestController
 @CrossOrigin(origins = "https://localhost:4200")
 public class Controller {
-<<<<<<< HEAD
 	
 	@Autowired
     InvoiceRepository invoiceRepository;
 	
 	@Autowired
 	RecommendationRepo recommendationRepo;
+	
+	PharmacySupportService pharmacySupportService;
 
     @GetMapping("/hello")
     public String getHello() {
@@ -54,16 +42,28 @@ public class Controller {
     
 	@PostMapping("/addingInvoice")
     void addUser(@RequestBody Invoice invoice) {
-		invoiceRepository.save(invoice);
+		//invoiceRepository.save(invoice);
+		pharmacySupportService.addInvoice(invoice);
     }
 	
 	@GetMapping("/home")
     public ArrayList<HashMap<String, Comparable>> notification() {
-		ArrayList<HashMap<String, Comparable>> customerNotificationList = findCustomerToBeNotified();
+		ArrayList<HashMap<String, Comparable>> customerNotificationList = pharmacySupportService.findCustomerToBeNotified();
         return customerNotificationList;
     }
 	
-	public ArrayList<HashMap<String, Comparable>> findCustomerToBeNotified() {
+	@GetMapping("/dashboard")
+    public ArrayList<HashMap<String, Comparable>> recommendations() {
+		ArrayList<HashMap<String, Comparable>> customerRecommendationList = pharmacySupportService.recommendationCheck();
+        return customerRecommendationList;
+    }
+	
+	@GetMapping("/kowshik")
+    public String getkowshik() {
+        return "Hikowshik";
+    }
+	
+	/*public ArrayList<HashMap<String, Comparable>> findCustomerToBeNotified() {
 		ArrayList<HashMap<String, Comparable>> customerNotificationList = new ArrayList<HashMap<String, Comparable>>();
 		String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
 		List<Invoice> registeredCustomers = new ArrayList<Invoice>();
@@ -72,7 +72,7 @@ public class Controller {
 			if(invoice.getExpectedCompletionDate().equalsIgnoreCase(currentDate)){
 				HashMap<String, Comparable> customerMap = new HashMap<String, Comparable>();
 				customerMap.put("CustomerName", invoice.getName());
-				customerMap.put("MedicineName", invoice.getmName());
+				customerMap.put("MedicineName", invoice.getMedicineName());
 				customerMap.put("ContactNumber", invoice.getContactNumber());
 				customerMap.put("Email", invoice.getEmail());
 				customerNotificationList.add(customerMap);
@@ -80,73 +80,49 @@ public class Controller {
 		}
 		return customerNotificationList;
 	}
-    
-=======
-	public PharmacySupportService pharmacySupport;
-
-	/**
-	 * 
-	 * @param supportService
-	 */
-	public Controller(PharmacySupportService supportService) {
-		this.pharmacySupport = supportService;
+	
+	public ArrayList<HashMap<String, Comparable>> recommendationCheck(){
+		String recommendations = "No Recommendations";
+		ArrayList<HashMap<String, Comparable>> customerRecommendationList = new ArrayList<HashMap<String, Comparable>>();
+		List<Invoice> customers = new ArrayList<Invoice>();
+		customers = (List<Invoice>) invoiceRepository.findAll();
+		Recommendation warehoused = new Recommendation();
+		for(Invoice invoice: customers){
+			HashMap<String, Comparable> recommendationMap = new HashMap<String, Comparable>();
+			recommendationMap.put("CustomerName", invoice.getName());
+			recommendationMap.put("ContactNumber", invoice.getContactNumber());
+			recommendationMap.put("Email", invoice.getEmail());
+			recommendationMap.put("Recommendations", getByMedicineName(invoice.getMedicineName(), invoice.getCount(), invoice.getAilmentName()));
+			customerRecommendationList.add(recommendationMap);
+		}
+		return customerRecommendationList;
 	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	@GetMapping("/users")
-	public List<Invoice> getUser() {
-		return pharmacySupport.authentication();
+	
+	public String getByMedicineName(String medicineName, int count, String ailmentName){
+		List<Recommendation> stockedMedicine = new ArrayList<Recommendation>();
+		stockedMedicine = (List<Recommendation>) recommendationRepo.findAll();
+		for(Recommendation medicine: stockedMedicine){
+			if(medicine.getMedicineName().equalsIgnoreCase(medicineName) && medicine.getStock()<count){
+				List<Recommendation> recommended = getByAilmentName(stockedMedicine, ailmentName);
+				for(Recommendation recommendation: recommended){
+					if(recommendation.getStock()>count){
+						return "Recommend "+recommendation.getMedicineName()+" over "+medicineName;
+					}
+				}
+				return "No Stock Available";
+			}
+		}
+		return "No Recommendations";
 	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	@GetMapping("/getRecommandation")
-	public List<Invoice> getRecommadation() {
-		return (List<Invoice>) pharmacySupport.fetchRecommandationValues();
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	@GetMapping("/getNotification")
-	public List<Invoice> getNotification() {
-		return (List<Invoice>) pharmacySupport.fetNotificationValues();
-	}
-
-	/**
-	 * 
-	 * @param invoice
-	 */
-	@PostMapping("/addInvoice")
-	public void addNotification(@RequestBody Invoice invoice) {
-		pharmacySupport.addNotificationValues(invoice);
-	}
-
-	/**
-	 * 
-	 * @param invoice
-	 */
-	@PostMapping("/updateNotice")
-	public void updateNoticeStatus(@RequestBody Invoice invoice) {
-		pharmacySupport.updateNoticeValues(invoice);
-	}
-
-	/**
-	 * 
-	 * @param recommandation
-	 */
-	/*@PostMapping("/updateRecommadation")
-	public void updateRecomandationStatus(
-			@RequestBody Recommendation recommandation) {
-
-		pharmacySupport.updateRecommandationValues(recommandation);
+	
+	public List<Recommendation> getByAilmentName(List<Recommendation> stockedMedicine, String ailmentName){
+		List<Recommendation> ailmentMedicine = new ArrayList<Recommendation>();
+		for(Recommendation medicine: stockedMedicine){
+			if(medicine.getAilmentName().equalsIgnoreCase(ailmentName)){
+				ailmentMedicine.add(medicine);
+			}
+		}
+		return ailmentMedicine;
 	}*/
-
->>>>>>> a52a26587a6c7bbb8dd34df509077e06bd4b08d7
+    
 }
