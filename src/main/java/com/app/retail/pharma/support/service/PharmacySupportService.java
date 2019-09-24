@@ -47,9 +47,34 @@ public class PharmacySupportService {
 		return (List<Recommendation>) recommendationRepo.findAll();
 	}
 	
-	public void updateNotificationStatus(Invoice invoice, String customerName){
-		invoice.setNotification_status("DialToConfirm");
+	public void updateNotificationStatus(Invoice invoice, String status){
+		invoice.setNotification_status(status);
 		invoiceRepository.save(invoice);
+	}
+	
+	public void updateRecommendationStatus(Invoice invoice, String status){
+		invoice.setRecommendation_status(status);
+		invoiceRepository.save(invoice);
+	}
+	
+	public void changeStatus(long id){
+		List<Invoice> registeredCustomers = fetchNotificationValues();
+		for(Invoice invoice: registeredCustomers){
+			if(Long.compare(id, invoice.getId()) == 0){
+				String status = "Dialled";
+				updateNotificationStatus(invoice, status);
+			}
+		}
+	}
+	
+	public void changeRecommendationStatus(long id){
+		List<Invoice> registeredCustomers = fetchNotificationValues();
+		for(Invoice invoice: registeredCustomers){
+			if(Long.compare(id, invoice.getId()) == 0){
+				String status = "Dialled";
+				updateRecommendationStatus(invoice, status);
+			}
+		}
 	}
 	
 	/**
@@ -65,7 +90,10 @@ public class PharmacySupportService {
 		registeredCustomers = fetchNotificationValues();
 		for(Invoice invoice: registeredCustomers){
 			if(invoice.getExpectedCompletionDate().equalsIgnoreCase(currentDate)){
-				updateNotificationStatus(invoice, invoice.getName());
+				if(invoice.getNotification_status().equalsIgnoreCase("NA")){
+					String status = "DialForSale";
+					updateNotificationStatus(invoice, status);
+				}
 				HashMap<String, Comparable> customerMap = new HashMap<String, Comparable>();
 				customerMap.put("Id", invoice.getId());
 				customerMap.put("CustomerName", invoice.getName());
@@ -91,11 +119,16 @@ public class PharmacySupportService {
 		customers = fetchNotificationValues();
 		Recommendation warehoused = new Recommendation();
 		for(Invoice invoice: customers){
+			if(invoice.getNotification_status().equalsIgnoreCase("NA")){
+				String status = "DialToConfirm";
+				updateRecommendationStatus(invoice, status);
+			}
 			HashMap<String, Comparable> recommendationMap = new HashMap<String, Comparable>();
 			recommendationMap.put("CustomerName", invoice.getName());
 			recommendationMap.put("ContactNumber", invoice.getContactNumber());
 			recommendationMap.put("Email", invoice.getEmail());
 			recommendationMap.put("Recommendations", getByMedicineName(invoice.getMedicineName(), invoice.getCount(), invoice.getAilmentName()));
+			recommendationMap.put("Status", invoice.getRecommendation_status());
 			customerRecommendationList.add(recommendationMap);
 		}
 		return customerRecommendationList;
