@@ -1,0 +1,16 @@
+Add Invoice:
+{
+"id": 312,
+"name": "kowshik",
+"age": 31,
+"aMName": "fever",
+"mName": "crocin",
+"intakeCode": 110,
+"count": 30,
+"consumptionDate": "20-09-2019",
+"expectedCompletionDate": "30-09-2019",
+"contactNumber": 9876546741,
+"email": "kowshik@gmail.com"
+}
+
+PLEASE ADD notification_status AND recommendation_status KEY IN THE ABOCVE REQUEST
