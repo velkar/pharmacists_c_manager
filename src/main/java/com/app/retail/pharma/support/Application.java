@@ -29,7 +29,21 @@ public class Application {
     
     @Bean
     CommandLineRunner init() {
-		return args -> {
+    	
+    	String[] medicines = ("Crocin,Cetrizine,DOLO-650").split(",");
+    	for(String mName: medicines){
+    		Recommendation recommendation = new Recommendation(mName, "Fever", 10);
+    		recommendationRepo.save(recommendation);
+    	}
+    	
+    	String[] names = ("Sanjay,Venkat,Steve").split(",");
+    	for(String name: names){
+    		Invoice invoiceInitObj = new Invoice(name, 31,"fever","crocin",111,20,"23-09-2019","23-09-2019",987616741,name.toLowerCase() + "@gmail.com", "NA", "NA");
+    		invoiceRepository.save(invoiceInitObj);
+    	}
+    	return null;
+    	
+		/*return args -> {
             Stream.of("Crocin", "Cetrizine", "DOLO-650").forEach(mName -> {
             	Recommendation recommendation = new Recommendation(mName, "Fever", 10);
             	recommendationRepo.save(recommendation);
@@ -39,7 +53,7 @@ public class Application {
             	Invoice invoiceInitObj = new Invoice(name, 31,"fever","crocin",111,20,"21-09-2019","21-09-2019",987616741,name.toLowerCase() + "@gmail.com");
             	invoiceRepository.save(invoiceInitObj);
             });
-        };
+        };*/
     }
     
 }

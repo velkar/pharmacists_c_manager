@@ -27,6 +27,8 @@ public class Invoice implements Serializable {
     private final String expectedCompletionDate;
     private final long contactNumber;
     private final String email;
+    private String notification_status;
+    private String recommendation_status;
     
     public Invoice() {
         this.name = "";
@@ -39,9 +41,11 @@ public class Invoice implements Serializable {
         this.expectedCompletionDate = null;
         this.contactNumber = 0L;
         this.email = "";
+        this.notification_status = "NA";
+        this.recommendation_status = "NA";
     }
     
-    public Invoice(String name, int age,String ailmentName,String medicineName,int intakeCode,int count,String consumptionDate,String expectedCompletionDate,long contactNumber, String email) {
+    public Invoice(String name, int age,String ailmentName,String medicineName,int intakeCode,int count,String consumptionDate,String expectedCompletionDate,long contactNumber, String email, String notification_status, String recommendation_status) {
         this.name = name;
         this.age = age;
         this.ailmentName = ailmentName;
@@ -52,6 +56,8 @@ public class Invoice implements Serializable {
         this.expectedCompletionDate = expectedCompletionDate;
         this.contactNumber = contactNumber;
         this.email = email;
+        this.notification_status = notification_status;
+        this.recommendation_status = recommendation_status;
     }
 
     public long getId() {
@@ -101,14 +107,29 @@ public class Invoice implements Serializable {
 	public String getEmail() {
         return email;
     }
-    
-    @Override
+	
+	public String getNotification_status() {
+		return notification_status;
+	}
+
+	public String getRecommendation_status() {
+		return recommendation_status;
+	}
+	
+	public void setNotification_status(String notification_status) {
+		this.notification_status = notification_status;
+	}
+	
+	public void setRecommendation_status(String recommendation_status) {
+		this.recommendation_status = recommendation_status;
+	}
+
+	@Override
     public String toString() {
-        //return "User{" + "id=" + id + ", name=" + name + ", email=" + email + '}';
         return "Invoice [id=" + id + ", name=" + name + ", age=" + age+ ", ailmentName=" + ailmentName 
 				+ ", medicineName=" + medicineName + ", intakeCode=" + intakeCode+ ", count=" + count 
 				+ ", consumptionDate=" + consumptionDate + ", expectedCompletionDate=" + expectedCompletionDate 
-				+ ", contactNumber =" + contactNumber + ", email=" + email + "]";
+				+ ", contactNumber =" + contactNumber + ", email=" + email + ", notification_status=" + notification_status + ", recommendation_status=" + recommendation_status + "]";
         
     }
 
