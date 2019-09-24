@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
 import com.app.retail.pharma.support.entities.Invoice;
 import com.app.retail.pharma.support.entities.Recommendation;
 import com.app.retail.pharma.support.repositories.InvoiceRepository;
@@ -14,20 +16,13 @@ import com.app.retail.pharma.support.repositories.RecommendationRepo;
 
 @Service
 public class PharmacySupportService {
-
+	
+	@Autowired
 	InvoiceRepository invoiceRepository;
 	
+	@Autowired
 	RecommendationRepo recommendationRepo;
 
-	/**
-	 * Assigning attribute values during class instantiation
-	 * @param invoiceRepository, recommendationRepo
-	 */
-	public PharmacySupportService(InvoiceRepository invoiceRepository, RecommendationRepo recommendationRepo) {
-		this.invoiceRepository = invoiceRepository;
-		this.recommendationRepo = recommendationRepo;
-	}
-	
 	/**
 	 * Adding invoice
 	 * @param invoice
