@@ -4,23 +4,24 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.app.retail.pharma.support.entities.Invoice;
 import com.app.retail.pharma.support.entities.Recommendation;
 import com.app.retail.pharma.support.repositories.InvoiceRepository;
 import com.app.retail.pharma.support.repositories.RecommendationRepo;
 
-/*
- * PharmacyService class
- *  
- */
+@Service
 public class PharmacySupportService {
 
-	private final InvoiceRepository invoiceRepository;
+	InvoiceRepository invoiceRepository;
 	
-	private final RecommendationRepo recommendationRepo;
+	RecommendationRepo recommendationRepo;
 
 	/**
-	 * @param invoiceRepository
+	 * Assigning attribute values during class instantiation
+	 * @param invoiceRepository, recommendationRepo
 	 */
 	public PharmacySupportService(InvoiceRepository invoiceRepository, RecommendationRepo recommendationRepo) {
 		this.invoiceRepository = invoiceRepository;
@@ -28,15 +29,39 @@ public class PharmacySupportService {
 	}
 	
 	/**
-	 * This method used for adding invoice as notification values
+	 * Adding invoice
 	 * @param invoice
 	 */
 	public void addInvoice(Invoice invoice) {
 		invoiceRepository.save(invoice);
 	}
 	
+	/**
+	 * This method used for fetching the notification details
+	 * @return List<Invoice>
+	 */
+	public List<Invoice> fetchNotificationValues() {
+		return (List<Invoice>) invoiceRepository.findAll();
+	}
 	
+	/**
+	 * This method used for fetching the recommendation details
+	 * @return List<Recommendation>
+	 */
+	public List<Recommendation> fetchRecommendationValues() {
+		return (List<Recommendation>) recommendationRepo.findAll();
+	}
 	
+	public void updateNotificationStatus(Invoice invoice, String customerName){
+		invoice.setNotification_status("DialToConfirm");
+		invoiceRepository.save(invoice);
+	}
+	
+	/**
+	 * Notification
+	 * 	- Prepares list of customers to be notified to buy their medicine, as their expected completion date is nearer
+	 * @returns ArrayList<HashMap<String, Comparable>>
+	 */
 	public ArrayList<HashMap<String, Comparable>> findCustomerToBeNotified() {
 		ArrayList<HashMap<String, Comparable>> customerNotificationList = new ArrayList<HashMap<String, Comparable>>();
 		String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
@@ -44,6 +69,7 @@ public class PharmacySupportService {
 		registeredCustomers = fetchNotificationValues();
 		for(Invoice invoice: registeredCustomers){
 			if(invoice.getExpectedCompletionDate().equalsIgnoreCase(currentDate)){
+				updateNotificationStatus(invoice, invoice.getName());
 				HashMap<String, Comparable> customerMap = new HashMap<String, Comparable>();
 				customerMap.put("CustomerName", invoice.getName());
 				customerMap.put("MedicineName", invoice.getMedicineName());
@@ -56,21 +82,10 @@ public class PharmacySupportService {
 	}
 	
 	/**
-	 * This method used for fetch the notification details
-	 * @return
+	 * Recommendation
+	 * 	- Prepares list of customers with the recommended set of medicine
+	 * @returns ArrayList<HashMap<String, Comparable>>
 	 */
-	public List<Invoice> fetchNotificationValues() {
-		return (List<Invoice>) invoiceRepository.findAll();
-	}
-	
-	/**
-	 * This method used for fetch the notification details
-	 * @return
-	 */
-	public List<Recommendation> fetchRecommendationValues() {
-		return (List<Recommendation>) recommendationRepo.findAll();
-	}
-	
 	public ArrayList<HashMap<String, Comparable>> recommendationCheck(){
 		String recommendations = "No Recommendations";
 		ArrayList<HashMap<String, Comparable>> customerRecommendationList = new ArrayList<HashMap<String, Comparable>>();
@@ -88,6 +103,12 @@ public class PharmacySupportService {
 		return customerRecommendationList;
 	}
 	
+	/**
+	 * Recommendation Message
+	 * 	- Generates Recommendation Message, based on the ailment of each user and stock availability of that particular medicine
+	 * @param String medicineName, int count, String ailmentName
+	 * @returns String
+	 */
 	public String getByMedicineName(String medicineName, int count, String ailmentName){
 		List<Recommendation> stockedMedicine = new ArrayList<Recommendation>();
 		stockedMedicine = fetchRecommendationValues();
@@ -105,6 +126,12 @@ public class PharmacySupportService {
 		return "No Recommendations";
 	}
 	
+	/**
+	 * getByAilmentName
+	 * 	- Fetches the list of medicine with the customer's ailment
+	 * @param List<Recommendation> stockedMedicine, String ailmentName
+	 * @returns List<Recommendation>
+	 */
 	public List<Recommendation> getByAilmentName(List<Recommendation> stockedMedicine, String ailmentName){
 		List<Recommendation> ailmentMedicine = new ArrayList<Recommendation>();
 		for(Recommendation medicine: stockedMedicine){
