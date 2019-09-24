@@ -9,6 +9,7 @@ import { AddinvoiceComponent } from './addinvoice/addinvoice.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TabsComponent } from './tabs/tabs.component';
 import { TabComponent } from './tabs/tab.component';
+import { InvoiceService } from './services/invoice.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { TabComponent } from './tabs/tab.component';
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [InvoiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
