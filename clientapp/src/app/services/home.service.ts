@@ -7,11 +7,9 @@ import { Observable } from 'rxjs';
 export class HomeService {
 
   private homeUrl: string;
-  private changeStatusUrl: string;
 
   constructor(private http: HttpClient) {
     this.homeUrl = 'http://localhost:9000/home';
-    this.changeStatusUrl = 'http://localhost:9000/changestatus';
   }
 
   public findAll(): Observable<Invoice[]> {
@@ -19,6 +17,6 @@ export class HomeService {
   }
 
   public changeStatus(id: string) {
-    return this.http.get(this.changeStatusUrl + '/' + id);
+    return this.http.post('http://localhost:9000/changestatus' + '/' + id, id);
   }
 }

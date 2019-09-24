@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../services/home.service';
-import { Invoice } from '../models/invoice';
 
 @Component({
   selector: 'app-home',
@@ -10,10 +9,14 @@ import { Invoice } from '../models/invoice';
 export class HomeComponent implements OnInit {
 
   private data: Object[];
-
+  
   constructor(private homeService: HomeService) { }
 
   ngOnInit() {
+    this.loadNotifications();
+  }
+
+  loadNotifications(){
     this.homeService.findAll().subscribe(res => {
        console.log(res);
        this.data = res;
@@ -21,7 +24,9 @@ export class HomeComponent implements OnInit {
   }
 
   changeStatus(id: string) {
-    this.homeService.changeStatus(id);
+    this.homeService.changeStatus(id).subscribe(() => {
+       this.loadNotifications();
+    });
   }
 
 }

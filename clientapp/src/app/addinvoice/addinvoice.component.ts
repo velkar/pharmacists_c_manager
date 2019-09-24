@@ -11,7 +11,7 @@ export class AddinvoiceComponent {
 
   invoice: Invoice;
 
-  constructor(private route: ActivatedRoute, private router: Router, private invoiceService: InvoiceService) {
+  constructor(private router: Router, private invoiceService: InvoiceService) {
     this.invoice = new Invoice();
    }
 
