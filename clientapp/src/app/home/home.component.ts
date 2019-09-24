@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HomeService } from '../services/home.service';
+import { Invoice } from '../models/invoice';
 
 @Component({
   selector: 'app-home',
@@ -7,13 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  private data: Object[];
+
+  constructor(private homeService: HomeService) { }
 
   ngOnInit() {
-  }
-
-  handleClick(event: Event){
-    console.log("Clicked the button");
+    this.homeService.findAll().subscribe(res => {
+       console.log(res);
+       this.data = res;
+  });
   }
 
 }

@@ -36,7 +36,7 @@ public class Application {
     	
     	String[] names = ("Sanjay,Venkat,Steve").split(",");
     	for(String name: names){
-    		Invoice invoiceInitObj = new Invoice(name, 31,"fever","crocin",111,20,"23-09-2019","23-09-2019",987616741,name.toLowerCase() + "@gmail.com", "NA", "NA");
+    		Invoice invoiceInitObj = new Invoice(name, 31,"fever","crocin",111,20,"24-09-2019","24-09-2019",987616741,name.toLowerCase() + "@gmail.com", "Dialled", "Dialled");
     		invoiceRepository.save(invoiceInitObj);
     	}
     	return null;

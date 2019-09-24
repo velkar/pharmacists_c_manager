@@ -1,37 +1,21 @@
 <app-tabs>
 	<app-tab [tabTitle]="'Notification'">
-		<table>
+		<table border="1">
 			<tr>
 				<th>SI No</th>
 				<th>Customer name</th>
 				<th>Medicine name</th>
 				<th>Phone number</th>
-				<th>Address</th>
+				<th>Email</th>
 				<th>Status</th>
 			</tr>
-			<tr>
-				<td>1</td>
-				<td>John Mathew</td>
-				<td>Azilsartan</td>
-				<td>(988)461-0028</td>
-				<td>Sanfranscisco</td>
-				<td>Dial for Sale</td>
-			</tr>
-			<tr>
-				<td>2</td>
-				<td>Deerea Goliath</td>
-				<td>Candesartan</td>
-				<td>(807)282-9678</td>
-				<td>Shoba Daffodil</td>
-				<td>Dial for Sale</td>
-			</tr>
-			<tr>
-				<td>3</td>
-				<td>Dorathy Jolio</td>
-				<td>Eprosartan</td>
-				<td>(988)471-0029</td>
-				<td>Michigan</td>
-				<td>Dialled</td>
+			<tr *ngFor="let invoice of data">
+				<td>{{invoice.Id}}</td>
+				<td>{{invoice.CustomerName}}</td>
+				<td>{{invoice.MedicineName}}</td>
+				<td>{{invoice.ContactNumber}}</td>
+				<td>{{invoice.Email}}</td>
+				<td>{{invoice.Status}}</td>
 			</tr>
 		</table>
 	</app-tab>

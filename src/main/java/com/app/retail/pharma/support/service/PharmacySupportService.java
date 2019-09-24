@@ -61,15 +61,18 @@ public class PharmacySupportService {
 		ArrayList<HashMap<String, Comparable>> customerNotificationList = new ArrayList<HashMap<String, Comparable>>();
 		String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
 		List<Invoice> registeredCustomers = new ArrayList<Invoice>();
+		// TODO : Need to change this to query specific data instead of all data
 		registeredCustomers = fetchNotificationValues();
 		for(Invoice invoice: registeredCustomers){
 			if(invoice.getExpectedCompletionDate().equalsIgnoreCase(currentDate)){
 				updateNotificationStatus(invoice, invoice.getName());
 				HashMap<String, Comparable> customerMap = new HashMap<String, Comparable>();
+				customerMap.put("Id", invoice.getId());
 				customerMap.put("CustomerName", invoice.getName());
 				customerMap.put("MedicineName", invoice.getMedicineName());
 				customerMap.put("ContactNumber", invoice.getContactNumber());
 				customerMap.put("Email", invoice.getEmail());
+				customerMap.put("Status", invoice.getNotification_status());
 				customerNotificationList.add(customerMap);
 			}
 		}

@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TabsComponent } from './tabs/tabs.component';
 import { TabComponent } from './tabs/tab.component';
 import { InvoiceService } from './services/invoice.service';
+import { HomeService } from './services/home.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { InvoiceService } from './services/invoice.service';
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [InvoiceService],
+  providers: [InvoiceService, HomeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
