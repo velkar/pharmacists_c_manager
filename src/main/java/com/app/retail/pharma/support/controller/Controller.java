@@ -41,7 +41,7 @@ public class Controller {
         return customerRecommendationList;
     }
 	
-	@RequestMapping(value = {"/changeStatus/{id}", "/changeRStatus/{id}"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/changestatus/{id}", "/changerstatus/{id}"}, method = RequestMethod.GET)
 	@ResponseBody
 	public String notificationStatus(@PathVariable("id") long id){
 		pharmacySupportService.changeStatus(id);
