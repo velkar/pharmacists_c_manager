@@ -8,10 +8,10 @@ export class InvoiceService {
   private invoiceUrl: string;
 
   constructor(private http: HttpClient) {
-    this.invoiceUrl = 'http://localhost:8080/invoice';
+    this.invoiceUrl = 'http://localhost:9000/addinvoice';
   }
 
   public save(invoice: Invoice) {
-    return;//this.http.post<Invoice>(this.invoiceUrl, invoice);
+    return this.http.post<Invoice>(this.invoiceUrl, invoice);
   }
 }

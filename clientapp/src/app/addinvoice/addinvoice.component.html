@@ -3,18 +3,67 @@
   <div class="card-body">
     <form (ngSubmit)="onSubmit()" #invoiceForm="ngForm">
       <div class="form-group">
-        <label for="cName">Customer Name: </label>
-        <input type="text" [(ngModel)]="invoice.cName" 
-          class="form-control" id="cName" name="cName" placeholder="Enter customer name"
-          required #cName="ngModel">
+        <label for="name">Customer Name: </label>
+        <input type="text" [(ngModel)]="invoice.name" 
+          class="form-control" id="name" name="name" placeholder="Enter customer name"
+          required #name="ngModel">
+          <div [hidden]="!name.pristine" class="alert alert-danger">Name is required</div>
       </div>
-      <div [hidden]="!cName.pristine" class="alert alert-danger">Name is required</div>
       <div class="form-group">
-        <label for="mName">Medicine Name: </label>
-        <input type="text" [(ngModel)]="invoice.mName" 
-          class="form-control" id="mName" name="mName" placeholder="Enter your medicine name"
-          required #mName="ngModel">
-        <div [hidden]="!mName.pristine" class="alert alert-danger">Medicine name is required</div>
+        <label for="medicineName">Medicine Name: </label>
+        <input type="text" [(ngModel)]="invoice.medicineName" 
+          class="form-control" id="medicineName" name="medicineName" placeholder="Enter your medicine name"
+          required #medicineName="ngModel">
+        <div [hidden]="!medicineName.pristine" class="alert alert-danger">Medicine name is required</div>
+      </div>
+      <div class="form-group">
+        <label for="age">Age : </label>
+        <input type="text" [(ngModel)]="invoice.age" 
+          class="form-control" id="age" name="age" placeholder="Enter your age"
+          required #age="ngModel">
+        <div [hidden]="!age.pristine" class="alert alert-danger">Age is required</div>
+      </div>
+      <div class="form-group">
+        <label for="count">Count: </label>
+        <input type="text" [(ngModel)]="invoice.count" 
+          class="form-control" id="count" name="count" placeholder="Enter your count"
+          required #ailmentName="ngModel">
+        <div [hidden]="!count.pristine" class="alert alert-danger">Count is required</div>
+      </div>
+      <div class="form-group">
+        <label for="ailmentName">Ailment Name: </label>
+        <input type="text" [(ngModel)]="invoice.ailmentName" 
+          class="form-control" id="ailmentName" name="ailmentName" placeholder="Enter your ailment name"
+          required #ailmentName="ngModel">
+        <div [hidden]="!ailmentName.pristine" class="alert alert-danger">Ailment name is required</div>
+      </div>
+      <div class="form-group">
+        <label for="consumptionDate">ConsumptioniDate</label>
+        <input type="text" [(ngModel)]="invoice.consumptionDate" 
+          class="form-control" id="consumptionDate" name="consumptionDate" placeholder="Enter your Consumption Date"
+          required #count="ngModel">
+        <div [hidden]="!consumptionDate.pristine" class="alert alert-danger">Consumption date is required</div>
+      </div>
+      <div class="form-group">
+        <label for="expectedCompletionDate">Invoice Date: </label>
+        <input type="text" [(ngModel)]="invoice.expectedCompletionDate" 
+          class="form-control" id="expectedCompletionDate" name="expectedCompletionDate" placeholder="Enter your invoice date name"
+          required #medicineName="ngModel">
+        <div [hidden]="!expectedCompletionDate.pristine" class="alert alert-danger">Invoice Date is required</div>
+      </div>
+      <div class="form-group">
+        <label for="contactNumber">Contact number: </label>
+        <input type="text" [(ngModel)]="invoice.contactNumber" 
+          class="form-control" id="contactNumber" name="contactNumber" placeholder="Enter your invoice date name"
+          required #medicineName="ngModel">
+        <div [hidden]="!contactNumber.pristine" class="alert alert-danger">Contact number required</div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email: </label>
+        <input type="text" [(ngModel)]="invoice.email" 
+          class="form-control" id="email" name="email" placeholder="Enter your invoice date name"
+          required #medicineName="ngModel">
+        <div [hidden]="!email.pristine" class="alert alert-danger">Email required</div>
       </div>
       <button type="submit" [disabled]="!invoiceForm.form.valid" class="btn btn-info">Submit</button>
     </form>

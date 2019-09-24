@@ -1,5 +1,12 @@
 export class Invoice {
     id: number;
-    cName: string;
-    mName: string;
+    name: string;
+    medicineName: string;
+    age: string
+    ailmentName: string
+    count: string
+    consumptionDate: string
+    expectedCompletionDate: string
+    contactNumber: string
+    email: string
 }

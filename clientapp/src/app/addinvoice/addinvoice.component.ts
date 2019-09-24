@@ -16,8 +16,7 @@ export class AddinvoiceComponent {
    }
 
   onSubmit() {
-    this.invoiceService.save(this.invoice);//.subscribe(result => this.gotoHome());
-    this.gotoHome();
+    this.invoiceService.save(this.invoice).subscribe(result => this.gotoHome());
   }
 
   gotoHome() {

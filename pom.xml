@@ -7,6 +7,8 @@
   <name>pharmacists_c_manager</name>
   <properties>
         <spring-boot.version>2.1.7.RELEASE</spring-boot.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
   <dependencies>
         <dependency>

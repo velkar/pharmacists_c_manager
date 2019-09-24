@@ -20,7 +20,7 @@ public class Controller {
 	@Autowired
 	PharmacySupportService pharmacySupportService;
 
-    @PostMapping("/addingInvoice")
+    @PostMapping("/addinvoice")
     void addUser(@RequestBody Invoice invoice) {
 		pharmacySupportService.addInvoice(invoice);
     }
