@@ -43,9 +43,8 @@ public class Controller {
 	
 	@RequestMapping(value = {"/changestatus/{id}", "/changerstatus/{id}"}, method = RequestMethod.POST)
 	@ResponseBody
-	public String notificationStatus(@PathVariable("id") long id){
+	public void notificationStatus(@PathVariable("id") long id){
 		pharmacySupportService.changeStatus(id);
-		return "Updated";
 	}
 	
 }
