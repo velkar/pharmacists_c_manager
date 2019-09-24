@@ -15,7 +15,10 @@
 				<td>{{invoice.MedicineName}}</td>
 				<td>{{invoice.ContactNumber}}</td>
 				<td>{{invoice.Email}}</td>
-				<td>{{invoice.Status}}</td>
+				<td><div *ngIf="invoice.Status === 'Dialled'; then thenBlock else elseBlock"></div>
+					<ng-template #thenBlock>{{invoice.status}}</ng-template>
+					<ng-template #elseBlock><button (click)="changeStatus(invoice.Id)">{{invoice.Status}}</button></ng-template>
+				</td>
 			</tr>
 		</table>
 	</app-tab>

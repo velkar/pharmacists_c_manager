@@ -17,7 +17,11 @@ export class HomeComponent implements OnInit {
     this.homeService.findAll().subscribe(res => {
        console.log(res);
        this.data = res;
-  });
+    });
+  }
+
+  changeStatus(id: string) {
+    this.homeService.changeStatus(id);
   }
 
 }
