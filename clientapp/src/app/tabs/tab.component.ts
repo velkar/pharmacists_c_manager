@@ -19,5 +19,5 @@ export class TabComponent {
 
   @Input('tabTitle') title: string;
   @Input() active = false;
-
+  
 }

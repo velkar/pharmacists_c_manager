@@ -8,12 +8,13 @@ import { HomeService } from '../services/home.service';
 })
 export class HomeComponent implements OnInit {
 
-  private data: Object[];
+  public data: Object[];
   
   constructor(private homeService: HomeService) { }
 
   ngOnInit() {
     this.loadNotifications();
+    this.loadRecommendations();
   }
 
   loadNotifications(){
@@ -21,6 +22,14 @@ export class HomeComponent implements OnInit {
        console.log(res);
        this.data = res;
     });
+  }
+
+  loadRecommendations(){
+    this.homeService.findAllRecommedations().subscribe(res => {
+       console.log(res);
+       this.data = res;
+    });
+
   }
 
   changeStatus(id: string) {

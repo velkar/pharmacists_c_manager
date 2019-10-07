@@ -24,7 +24,27 @@
 	</app-tab>
 
 	<app-tab [tabTitle]="'Recommendation'">
-		Tab2 content
+		<table border="1">
+			<tr>
+				<th>SI No</th>
+				<th>Customer name</th>
+				<th>Phone number</th>
+				<th>Email</th>
+				<th>Recommendations</th>
+				<th>Status</th>
+			</tr>
+			<tr *ngFor="let invoice of data">
+				<td>{{invoice.Id}}</td>
+				<td>{{invoice.CustomerName}}</td>
+				<td>{{invoice.ContactNumber}}</td>
+				<td>{{invoice.Email}}</td>
+				<td>{{invoice.Recommendations}}</td>
+				<td><div *ngIf="invoice.Status === 'Dialled'; then thenBlock else elseBlock"></div>
+					<ng-template #thenBlock>{{invoice.Status}}</ng-template>
+					<ng-template #elseBlock><button (click)="changeStatus(invoice.Id)">{{invoice.Status}}</button></ng-template>
+				</td>
+			</tr>
+		</table>
 	</app-tab>
 </app-tabs>
 
