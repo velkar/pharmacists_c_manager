@@ -5,7 +5,7 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>pharmacists_c_manager</name>
   <properties>
-        <spring-boot.version>2.1.7.RELEASE</spring-boot.version>
+        <spring-boot.version>2.5.12</spring-boot.version>
     </properties>
   <dependencies>
         <dependency>
